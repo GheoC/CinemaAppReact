@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "username": "raisa@gmail.com",
+      "password": "asd",
+      "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyYWlzYUBnbWFpbC5jb20iLCJyb2xlcyI6IlJPTEVfQURNSU4sUk9MRV9VU0VSIiwiZXhwIjoyMTAzNzM1NTM0fQ._mRmIabM_bhqZrIRdSVddlJyXD11yuNID1CMba58PDbT1pSTEuNiP6K8BlWm5144GXNlLYydaW85tJHhA0voCg",
+      "expirationDate": "2036-08-30T21:58:54",
+      "userId": 3,
+      "role": "ADMIN"
+    },
+    {
+      "username": "gigi@gmail.com",
+      "password": "asd",
+      "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnaWdpQGdtYWlsLmNvbSIsInJvbGVzIjoiUk9MRV9VU0VSIiwiZXhwIjoyMTAzNzM1Mzg4fQ.ZyO000YcybR_h6e4tdzMu0clDZp_YXmrqKhivjyjVJMRme0BFVyLMvfjftDwGIaSIddOfEUfAVXClggtlDgibg",
+      "expirationDate": "2036-08-30T21:56:28",
+      "userId": 18,
+      "role": "USER"
+    }
+  ]
+}
