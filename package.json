@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "server": "json-server --watch db.json --port 3001"
   },
   "author": "Gheo",
   "license": "ISC",
   "dependencies": {
+    "@ant-design/icons": "^4.8.0",
     "antd": "^5.1.0",
+    "axios": "^1.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.0",
@@ -26,5 +29,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "json-server": "^0.17.1"
   }
 }
