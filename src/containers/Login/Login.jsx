@@ -1,10 +1,8 @@
-import {Button, Form, Input, Layout} from "antd";
 import axios from "axios";
 import {useAuthContext} from "../../context/AuthProvider/AuthProvider";
 import {useState} from "react";
 import {loginFromJson} from "../../api/authenticate"
-
-const {Content} = {...Layout}
+import LoginView from "../../components/LoginView";
 
 function Login() {
     const {setLoggedUser} = useAuthContext();
@@ -31,25 +29,8 @@ function Login() {
 
     return (
         <>
-            <Layout>
-                <Content title={"Hello"} style={{padding: "100px 370px"}}>
-                    <Form size={"middle"} onFinish={onFinish} onFieldsChange={() => setLoginFailedMessage('')}>
-                        <Form.Item name="username" requiredMark label="Username"
-                                   rules={[{required: true, message: 'Username required'}]}>
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item name="password" requiredMark label="Password"
-                                   rules={[{required: true, message: 'Password required'}]}>
-                            <Input.Password/>
-                        </Form.Item>
-                        <Button style={{padding: "0px 40px", margin: "0px 130px"}}
-                                htmlType="submit" type={'primary'}> Submit</Button>
-                        <br/>
-                        <br/>
-                        <p style={{color: "red", textAlign: "center"}}>{loginFailedMessage}</p>
-                    </Form>
-                </Content>
-            </Layout>
+            <LoginView onFinish={onFinish} loginFailedMessage={loginFailedMessage}
+                       setLoginFailedMessage={setLoginFailedMessage}/>
         </>)
 }
 
