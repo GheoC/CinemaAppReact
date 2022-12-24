@@ -10,7 +10,7 @@ const root = document.getElementById("root")
 const main = createRoot(root);
 
 main.render(<h2>
-    <ConfigProvider theme={{token: {colorPrimary: 'orange', colorText: "blue"}}}>
+    <ConfigProvider theme={{token: {colorPrimary: 'orange'}}}>
         <AuthProvider>
             <BrowserRouter>
                 <App/>

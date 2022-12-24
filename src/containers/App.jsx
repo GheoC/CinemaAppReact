@@ -3,6 +3,7 @@ import Login from "./Login";
 import {useAuthContext} from "../context/AuthProvider/AuthProvider";
 import {useEffect} from "react";
 import axios from "axios";
+import "../styles/App.css"
 
 function App() {
     const {username, setLoggedUser} = useAuthContext();
