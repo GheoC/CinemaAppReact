@@ -40,7 +40,7 @@ function LoginView({loginFailedMessage, setLoginFailedMessage, onFinish}) {
                     }} htmlType="submit" type={'primary'}> Submit</Button>
                     <span
                         style={{color: "white", marginLeft: "900px"}}>Dont' have an account? </span>
-                    <a style={{color: "cyan"}} onClick={()=>navigate("/register")}>Click here</a>
+                    <a style={{color: "cyan"}} onClick={()=>navigate("/register")}>Register</a>
                     <br/>
                     <br/>
                     <p style={{color: "red", textAlign: "center", fontSize:"40px", marginLeft:"70px"}}>{loginFailedMessage}</p>

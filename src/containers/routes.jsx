@@ -1,6 +1,7 @@
 import Login from "./Login";
 import PageNotFound from "../components/PageNotFound";
 import Movies from "./Movies";
+import Registration from "./Registration";
 
 export default [
     {
@@ -10,6 +11,10 @@ export default [
     {
         path: "/login",
         element: <Login/>
+    },
+    {
+        path: "/register",
+        element: <Registration/>
     },
     {
         path: "*",
