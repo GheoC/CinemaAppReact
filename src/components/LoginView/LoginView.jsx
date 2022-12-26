@@ -1,13 +1,16 @@
 import {Button, Form, Input, Layout} from "antd";
 import {Content} from "antd/es/layout/layout";
 import loginBackground from "../../pictures/loginbackground.jpg"
+import {useNavigate} from "react-router-dom";
 
 function LoginView({loginFailedMessage, setLoginFailedMessage, onFinish}) {
+    const navigate = useNavigate();
     return (
         <Layout className={"container"} style={{
             backgroundImage: `url(${loginBackground})`,
             backgroundRepeat: "round",
-            backgroundBlendMode: "luminosity"
+            backgroundBlendMode: "luminosity",
+            height: "100vh"
         }}>
             <Content style={{paddingTop: "130px"}}>
                 <Form size={"large"} onFinish={onFinish} onFieldsChange={() => setLoginFailedMessage('')}
@@ -31,13 +34,16 @@ function LoginView({loginFailedMessage, setLoginFailedMessage, onFinish}) {
                         padding: "0px 50px",
                         margin: "0px 900px",
                         fontSize: "24px",
-                        color: "blue",
-                        fontWeight: "bolder"
-                    }}
-                            htmlType="submit" type={'primary'}> Submit</Button>
+                        color: "indigo",
+                        fontWeight: "bolder",
+                        marginBottom: "20px"
+                    }} htmlType="submit" type={'primary'}> Submit</Button>
+                    <span
+                        style={{color: "white", marginLeft: "900px"}}>Dont' have an account? </span>
+                    <a style={{color: "cyan"}} onClick={()=>navigate("/register")}>Click here</a>
                     <br/>
                     <br/>
-                    <p style={{color: "red", textAlign: "center"}}>{loginFailedMessage}</p>
+                    <p style={{color: "red", textAlign: "center", fontSize:"40px", marginLeft:"70px"}}>{loginFailedMessage}</p>
                 </Form>
             </Content>
         </Layout>
