@@ -1,12 +1,20 @@
-import Root from "./Root";
-import Login from "./Login";
 import {useAuthContext} from "../context/AuthProvider/AuthProvider";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import "../styles/App.css"
+import {Route, Routes} from "react-router-dom";
+import routes from "./routes";
+import {Layout} from "antd";
+import MyHeader from "../components/MyHeader/MyHeader";
 
 function App() {
-    const {username, setLoggedUser} = useAuthContext();
+    const {setLoggedUser, username, logout} = useAuthContext();
+    const [collapsed, setCollapsed] = useState(true);
+
+    let isAuthenticated = false;
+    if (username !== '') {
+        isAuthenticated = true;
+    }
     const isTokenStillValid = async () => {
         const tokenFromStorage = localStorage.getItem("token");
         if (tokenFromStorage) {
@@ -24,23 +32,26 @@ function App() {
         isTokenStillValid();
     }, [])
 
-    let isAuthenticated = false;
-    if (username !== '') {
-        isAuthenticated = true;
-    }
-    const isLoading = false;
-
-    if (isLoading) {
-        return 'Loading...'
-    }
-
-    if (isAuthenticated) {
-        return <Root/>
-    }
-
-    return <>
-        <Login/>
-    </>
+    return (
+        <Layout>
+            <Layout>
+                <MyHeader isAuthenticated={isAuthenticated} username={username} logout={logout}></MyHeader>
+            </Layout>
+            <Layout className={"container"}>
+                <Layout.Sider collapsedWidth={"0px"} collapsible collapsed={collapsed}
+                              onCollapse={(value) => setCollapsed(value)}
+                              style={{background: "#4f202d", color: "white"}}>Slider
+                </Layout.Sider>
+                <Layout.Content>
+                    <Routes>
+                        {routes.map(({element, path}) => (
+                            <Route key={path} path={path} element={element}></Route>
+                        ))}
+                    </Routes>
+                </Layout.Content>
+            </Layout>
+            <Layout.Footer style={{background: "rgb(17,2,2)"}}>Footer</Layout.Footer>
+        </Layout>)
 }
 
 export default App;
