@@ -5,7 +5,8 @@ import "../styles/App.css"
 import {Route, Routes} from "react-router-dom";
 import routes from "./routes";
 import {Layout} from "antd";
-import MyHeader from "../components/MyHeader/MyHeader";
+import MyHeader from "../components/MyHeader";
+
 
 function App() {
     const {setLoggedUser, username, logout} = useAuthContext();
@@ -38,12 +39,12 @@ function App() {
                 <MyHeader isAuthenticated={isAuthenticated} username={username} logout={logout}></MyHeader>
             </Layout>
             <Layout className={"container"}>
-                <Layout.Sider collapsedWidth={"0px"} collapsible collapsed={collapsed}
+                <Layout.Sider collapsedWidth={"0px"} width="300px" collapsible collapsed={collapsed}
                               onCollapse={(value) => setCollapsed(value)}
                               style={{background: "#4f202d", color: "white"}}>Slider
                 </Layout.Sider>
-                <Layout.Content>
-                    <Routes>
+                <Layout.Content style={{background:"#555"}} >
+                    <Routes style={{marginLeft:"45px", marginTop:"20px"}}>
                         {routes.map(({element, path}) => (
                             <Route key={path} path={path} element={element}></Route>
                         ))}

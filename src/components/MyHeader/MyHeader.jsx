@@ -1,6 +1,6 @@
 import {Button, Layout, Menu} from "antd";
 import Title from "antd/lib/typography/Title";
-import {PoweroffOutlined} from "@ant-design/icons";
+import {HomeOutlined, PoweroffOutlined} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
 
 function MyHeader({isAuthenticated, username, logout}) {
@@ -16,6 +16,14 @@ function MyHeader({isAuthenticated, username, logout}) {
                     label: <Title
                         style={{color: "#d3f261", fontSize: "60px", fontFamily: "Quicksand"}}>Cinema
                         GG</Title>
+                },
+                {
+                    style: {float: "right"},
+                    key: 'home',
+                    label: <Button size="large" style={{
+                        width: "48px",
+                    }} icon={<HomeOutlined/>} type={'primary'} ghost
+                                   onClick={() => navigate("/")}> </Button>
                 },
                 {
                     style: {float: "right"},
@@ -40,13 +48,13 @@ function MyHeader({isAuthenticated, username, logout}) {
                     key: 'register',
                     label: (!isAuthenticated &&
                         <Button onClick={() => navigate("/register")}
-                            size={"large"}
-                            type={'primary'}
-                            style={{
-                                fontSize: "20px",
-                                color: "indigo",
-                                fontWeight: "bolder"
-                            }}> Register </Button>)
+                                size={"large"}
+                                type={'primary'}
+                                style={{
+                                    fontSize: "20px",
+                                    color: "indigo",
+                                    fontWeight: "bolder"
+                                }}> Register </Button>)
                 },
                 {
                     style: {float: "right"},
@@ -60,7 +68,7 @@ function MyHeader({isAuthenticated, username, logout}) {
                                     color: "indigo",
                                     fontWeight: "bolder"
                                 }}> Login </Button>)
-                }
+                },
             ]}
         ></Menu>
     </Layout.Header>
