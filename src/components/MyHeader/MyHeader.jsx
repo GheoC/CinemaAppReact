@@ -1,13 +1,13 @@
 import {Button, Layout, Menu} from "antd";
 import Title from "antd/lib/typography/Title";
-import {HomeOutlined, PoweroffOutlined} from "@ant-design/icons";
+import {PoweroffOutlined} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
 
 function MyHeader({isAuthenticated, username, logout}) {
     const navigate = useNavigate();
-    return <Layout.Header style={{background: "rgb(17,2,2)", height: "120px"}}>
+    return <Layout.Header style={{background: "rgb(17,2,2)", height: "100px"}}>
         <Menu
-            style={{backgroundColor: "black", display: "block", fontFamily: "Quicksand", marginTop: "25px"}}
+            style={{backgroundColor: "black", display: "block", fontFamily: "Quicksand", marginTop: "10px", height:"75px"}}
             mode="horizontal"
             items={[
                 {
@@ -16,14 +16,6 @@ function MyHeader({isAuthenticated, username, logout}) {
                     label: <Title
                         style={{color: "#d3f261", fontSize: "60px", fontFamily: "Quicksand"}}>Cinema
                         GG</Title>
-                },
-                {
-                    style: {float: "right"},
-                    key: 'home',
-                    label: <Button size="large" style={{
-                        width: "48px",
-                    }} icon={<HomeOutlined/>} type={'primary'} ghost
-                                   onClick={() => navigate("/")}> </Button>
                 },
                 {
                     style: {float: "right"},
@@ -44,7 +36,7 @@ function MyHeader({isAuthenticated, username, logout}) {
                     }}>Hello {username}</p>)
                 },
                 {
-                    style: {float: "right"},
+                    style: {float: "right", marginTop:"10px"},
                     key: 'register',
                     label: (!isAuthenticated &&
                         <Button onClick={() => navigate("/register")}
@@ -57,7 +49,7 @@ function MyHeader({isAuthenticated, username, logout}) {
                                 }}> Register </Button>)
                 },
                 {
-                    style: {float: "right"},
+                    style: {float: "right",  marginTop:"10px"},
                     key: 'login',
                     label: (!isAuthenticated &&
                         <Button onClick={() => navigate("/login")}

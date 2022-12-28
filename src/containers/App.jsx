@@ -2,15 +2,19 @@ import {useAuthContext} from "../context/AuthProvider/AuthProvider";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import "../styles/App.css"
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import routes from "./routes";
-import {Layout} from "antd";
+import {Layout, Menu} from "antd";
 import MyHeader from "../components/MyHeader";
+import {TbMovie} from "react-icons/tb";
+import {SlHome} from "react-icons/sl";
 
 
 function App() {
     const {setLoggedUser, username, logout} = useAuthContext();
     const [collapsed, setCollapsed] = useState(true);
+
+    const navigate = useNavigate();
 
     let isAuthenticated = false;
     if (username !== '') {
@@ -39,12 +43,35 @@ function App() {
                 <MyHeader isAuthenticated={isAuthenticated} username={username} logout={logout}></MyHeader>
             </Layout>
             <Layout className={"container"}>
-                <Layout.Sider collapsedWidth={"0px"} width="300px" collapsible collapsed={collapsed}
+                <Layout.Sider width="200px" collapsible collapsed={collapsed}
                               onCollapse={(value) => setCollapsed(value)}
-                              style={{background: "#4f202d", color: "white"}}>Slider
+                              style={{background: "#4f202d", color: "white"}}>
+                    <div
+                        style={{
+                            height: 32,
+                            margin: 16,
+                            background: 'rgba(255, 255, 255, 0.2)',
+                        }}
+                    />
+                    <Menu theme="dark" items={[
+                        {
+                            key: "home",
+                            label: "Home",
+                            icon: <SlHome/>,
+                            onClick: ()=> navigate("/")
+                        },
+                        {
+                            key: "movies",
+                            label: "Movies",
+                            icon: <TbMovie/>,
+                            onClick: ()=> navigate("/movies")
+                        }
+                    ]}>
+
+                    </Menu>
                 </Layout.Sider>
-                <Layout.Content style={{background:"#555"}} >
-                    <Routes style={{marginLeft:"45px", marginTop:"20px"}}>
+                <Layout.Content>
+                    <Routes style={{marginLeft: "45px", marginTop: "20px"}}>
                         {routes.map(({element, path}) => (
                             <Route key={path} path={path} element={element}></Route>
                         ))}
