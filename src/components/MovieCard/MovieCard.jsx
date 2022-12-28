@@ -1,8 +1,8 @@
 import {Card, Typography} from "antd";
 import Meta from "antd/es/card/Meta";
 
-function Movie({name, duration, trailer, director, type}) {
-    return <Card title={<a style={{fontSize:"18px"}}>{name}</a>} size={"medium"} style={{width: "485px"}}>
+function MovieCard({name, duration, trailer, director, type}) {
+    return <Card title={<a style={{fontSize: "18px"}}>{name}</a>} size={"medium"} style={{width: "465px", margin:"25px"}}>
         <Typography.Paragraph>Director: {director}</Typography.Paragraph>
         <iframe width="420" height="315"
                 src={trailer} title="YouTube video player"
@@ -15,4 +15,4 @@ function Movie({name, duration, trailer, director, type}) {
 
 }
 
-export default Movie;
+export default MovieCard;
