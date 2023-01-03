@@ -1,51 +1,39 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getMovieById} from "../../api/moviesApi";
-import {Card, Col, Layout, Row, Typography} from "antd";
+import {getMovieById, getMovieEventsForMovie} from "../../api/moviesApi";
 import PageNotFound from "../../components/PageNotFound";
-import Meta from "antd/es/card/Meta";
+import {useAuthContext} from "../../context/AuthProvider/AuthProvider";
+import MovieDetailsView from "../../components/MovieDetailsView";
 
 function MovieDetails() {
     const {id} = useParams();
     const [movie, setMovie] = useState();
     const [isMovieFound, setIsMovieFound] = useState(true);
+    const [movieEvents, setMovieEvents] = useState();
+    const {username} = useAuthContext();
+
+    const movieCelebrities = movie?.celebrities.reduce((acc, celebrity) => {
+        return `${acc} ${celebrity}, `;
+    }, '');
+
+    const movieGenre = movie?.genres.reduce((acc, genre) => {
+        return `${acc} ${genre} ●`;
+    }, '');
 
     useEffect(() => {
         getMovieById(id, setMovie, setIsMovieFound)
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        getMovieEventsForMovie(id, setMovieEvents)
+    }, []);
 
     if (!isMovieFound) {
         return <PageNotFound/>
     }
 
-    return <>
-        <Layout>
-            <Layout.Content>
-                <Row>
-                    <Col>
-                        <Card style={{width: "800px", marginTop: "25px", marginLeft: "25px"}}>
-                            <Typography.Title> {movie?.name}</Typography.Title>
-                            <Typography.Paragraph>Director: {movie?.director}</Typography.Paragraph>
-                            <iframe width="750" height="500"
-                                    src={movie?.trailer} title="YouTube video player"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen>
-                            </iframe>
-                            <Meta description={movie?.type} style={{textAlign: "right"}}></Meta>
-                            <Meta description={`${movie?.duration} minutes`} style={{textAlign: "right"}}></Meta>
-                            <></>
-                        </Card>
-                    </Col>
-                    <Col>
-                        <Card style={{width: "775px", margin: "25px"}}>
-                            <Typography.Title>Movie Schedule: ...</Typography.Title>
-                        </Card>
-                    </Col>
-                </Row>
-            </Layout.Content>
-        </Layout>
-
-    </>
+    return <MovieDetailsView movie={movie} movieCelebrities={movieCelebrities} movieGenre={movieGenre}
+                             movieEvents={movieEvents} username={username}/>
 }
 
 export default MovieDetails;
