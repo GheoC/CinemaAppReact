@@ -3,6 +3,8 @@ import PageNotFound from "../components/PageNotFound";
 import Movies from "./Movies";
 import Registration from "./Registration";
 import Home from "../components/Home";
+import MovieDetails from "./MovieDetails";
+
 
 export default [
     {
@@ -11,7 +13,11 @@ export default [
     },
     {
         path: "/movies",
-        element: <Movies/>
+        element:<Movies/>
+    },
+    {
+        path: "/movies/:id",
+        element: <MovieDetails/>
     },
     {
         path: "/login",
