@@ -18,7 +18,7 @@ function Login() {
                 if (response.status === 200) {
                     setLoggedUser(response.data);
                     localStorage.setItem('token', response.data.token);
-                    navigate("/");
+                    navigate(-1);
                 }
             })
             .catch(() => setLoginFailedMessage('Bad Credentials'));
