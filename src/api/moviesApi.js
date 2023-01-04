@@ -26,14 +26,14 @@ export async function getMovieById(id, setMovie, setIsMovieFound) {
 export async function getMovieEventsForMovie(id, setMovieEvents) {
     await axios.get(`http://localhost:8080/api/v1/movie-events/movie/${id}`)
         .then((response) => {
-            const map = response.data.map((singleData) => {
+            const movieEvents = response.data.map((singleData) => {
                 return {
                     ...singleData, movieTime: new Date(singleData.playMovieDateTime).toTimeString().slice(0, 8),
                     movieDate: new Date(singleData.playMovieDateTime).toISOString().slice(0, 10)
                 }
             });
-            console.log(map);
-            setMovieEvents(map);
+            console.log(movieEvents);
+            setMovieEvents(movieEvents);
         })
         .catch((e) => {
             console.log(e.message);
