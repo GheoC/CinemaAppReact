@@ -10,7 +10,7 @@ function MovieDetails() {
     const [movie, setMovie] = useState();
     const [isMovieFound, setIsMovieFound] = useState(true);
     const [movieEvents, setMovieEvents] = useState();
-    const {username} = useAuthContext();
+    const {userId, username, logout} = useAuthContext();
 
     const movieCelebrities = movie?.celebrities.reduce((acc, celebrity) => {
         return `${acc} ${celebrity}, `;
@@ -33,7 +33,7 @@ function MovieDetails() {
     }
 
     return <MovieDetailsView movie={movie} movieCelebrities={movieCelebrities} movieGenre={movieGenre}
-                             movieEvents={movieEvents} username={username}/>
+                             movieEvents={movieEvents} username={username} userId={userId} logout={logout}/>
 }
 
 export default MovieDetails;

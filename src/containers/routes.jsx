@@ -4,6 +4,7 @@ import Movies from "./Movies";
 import Registration from "./Registration";
 import Home from "../components/Home";
 import MovieDetails from "./MovieDetails";
+import Tickets from "./Tickets";
 
 
 export default [
@@ -13,7 +14,7 @@ export default [
     },
     {
         path: "/movies",
-        element:<Movies/>
+        element: <Movies/>
     },
     {
         path: "/movies/:id",
@@ -26,6 +27,11 @@ export default [
     {
         path: "/register",
         element: <Registration/>
+    },
+    {
+        path: "/tickets",
+        element: <Tickets/>,
+        needsAuth: true
     },
     {
         path: "*",

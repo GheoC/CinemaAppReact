@@ -8,6 +8,7 @@ import {Layout, Menu} from "antd";
 import MyHeader from "../components/MyHeader";
 import {TbMovie} from "react-icons/tb";
 import {SlHome} from "react-icons/sl";
+import {HiOutlineTicket} from "react-icons/hi";
 
 
 function App() {
@@ -58,23 +59,32 @@ function App() {
                             key: "home",
                             label: "Home",
                             icon: <SlHome/>,
-                            onClick: ()=> navigate("/")
+                            onClick: () => navigate("/")
                         },
                         {
                             key: "movies",
                             label: "Movies",
                             icon: <TbMovie/>,
-                            onClick: ()=> navigate("/movies")
-                        }
+                            onClick: () => navigate("/movies")
+                        },
+                        (isAuthenticated && {
+                            key: "tickets",
+                            label: "MyTickets",
+                            icon: <HiOutlineTicket/>,
+                            onClick: () => navigate("/tickets")
+                        })
                     ]}>
 
                     </Menu>
                 </Layout.Sider>
                 <Layout.Content>
                     <Routes style={{marginLeft: "45px", marginTop: "20px"}}>
-                        {routes.map(({element, path}) => (
-                            <Route key={path} path={path} element={element}></Route>
-                        ))}
+                        {routes
+                            .filter((route) =>
+                                (route.needsAuth && route.needsAuth === isAuthenticated) || !route.needsAuth)
+                            .map(({element, path}) => (
+                                <Route key={path} path={path} element={element}></Route>
+                            ))}
                     </Routes>
                 </Layout.Content>
             </Layout>
