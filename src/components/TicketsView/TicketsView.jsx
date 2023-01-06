@@ -1,7 +1,12 @@
-import {Image, Layout, Table, Typography} from "antd";
+import {Image, Layout, QRCode, Table, Typography} from "antd";
 
 function TicketsView({tickets}) {
     const columns = [
+        {
+            title: "Ticket",
+            render: (_, record) => <QRCode
+                value={`Event: ${record.movieEventId}! => ${record.movieName} in room ${record.room} at ${record.playDate}. Don't miss out!`}/>
+        },
         {
             title: "Date",
             dataIndex: "playDate",
@@ -21,7 +26,7 @@ function TicketsView({tickets}) {
             title: "Movie",
             dataIndex: "movieName",
             width: "450px",
-            align:"center"
+            align: "center"
         },
         {
 
@@ -39,7 +44,8 @@ function TicketsView({tickets}) {
         <Layout>
             <Layout.Content style={{height: "80%", margin: "25px"}}>
                 <Typography.Title>Tickets:</Typography.Title>
-                <Table columns={columns} dataSource={tickets} rowKey="id" size="small" style={{width:"1200px", marginLeft:"300px"}}/>
+                <Table columns={columns} dataSource={tickets} rowKey="id" size="small"
+                       style={{width: "1200px", marginLeft: "300px"}}/>
             </Layout.Content>
         </Layout>
     </>

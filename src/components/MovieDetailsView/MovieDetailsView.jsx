@@ -1,8 +1,15 @@
-import {Button, Card, Col, Layout, Popconfirm, Row, Table, Tag, Typography} from "antd";
+import {Button, Card, Col, Layout, notification, Popconfirm, Row, Table, Tag, Typography} from "antd";
 import Meta from "antd/es/card/Meta";
 import {buyTicket} from "../../api/ticketsApi";
 
 function MovieDetailsView({movie, movieCelebrities, movieGenre, movieEvents, username, userId, logout}) {
+    const [api, contextHolder] = notification.useNotification();
+    const openNotificationWithIcon = (type, msg) => {
+        api[type]({
+            message: 'Ticket bought successfully',
+            description: msg,
+        });
+    };
 
     const columns = [
         {
@@ -25,7 +32,12 @@ function MovieDetailsView({movie, movieCelebrities, movieGenre, movieEvents, use
             title: "Buy Ticket",
             render: (_, record) => (username &&
                 <Popconfirm title={"Are you sure you want to buy this ticket"}
-                            onConfirm={() => buyTicket(record.id, userId, record.price, logout)}>
+                            onConfirm={() => buyTicket(record.id, userId, record.price, logout)
+                                .then(() => openNotificationWithIcon(
+                                    'success',
+                                    `${username} bought ticket for movieEvent ${record.id} for ${record.price} lei`
+                                ))
+                            }>
                     <Button type="primary" shape="round" size={"small"}>Buy Ticket</Button>
                 </Popconfirm>
             )
@@ -34,6 +46,7 @@ function MovieDetailsView({movie, movieCelebrities, movieGenre, movieEvents, use
 
     return <>
         <Layout>
+            {contextHolder}
             <Layout.Content>
                 <Row>
                     <Col>
@@ -70,6 +83,11 @@ function MovieDetailsView({movie, movieCelebrities, movieGenre, movieEvents, use
                             </iframe>
                             <Meta description={`Duration: ${movie?.duration}`} style={{textAlign: "right"}}></Meta>
                             <Meta description={movieGenre} style={{textAlign: "right"}}></Meta>
+                            <Button onClick={() => {
+                                console.log("click");
+                                openNotificationWithIcon('success')
+                            }
+                            }>Success</Button>
                             <></>
                         </Card>
                     </Col>
