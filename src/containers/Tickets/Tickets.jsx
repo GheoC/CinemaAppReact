@@ -4,15 +4,16 @@ import {useAuthContext} from "../../context/AuthProvider/AuthProvider";
 import TicketsView from "../../components/TicketsView/TicketsView";
 
 function Tickets() {
-    const {userId} = useAuthContext();
+    const [triggerRenderMsg, setTriggerRenderMsg] = useState('');
+    const {userId, username, logout} = useAuthContext();
     const [tickets, setTickets] = useState([]);
 
     useEffect(() => {
         getTicketsForUsers(userId, setTickets);
-    }, [])
+    }, [triggerRenderMsg])
 
     return <>
-        <TicketsView tickets={tickets}/>
+        <TicketsView tickets={tickets} username={username} logout={logout} setTriggerRenderMsg={setTriggerRenderMsg}/>
     </>
 }
 

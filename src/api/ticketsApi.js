@@ -39,3 +39,20 @@ export async function getTicketsForUsers(userId, setTickets) {
             console.log(e.message)
         })
 }
+
+export async function cancelTicket(ticketId, logout) {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    console.log(ticketId);
+    await axios.put(`http://localhost:8080/api/v1/tickets/${ticketId}`, {}, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+    ).catch((e) => {
+        if (e.response.status === 401) {
+            console.log("Token has expired! Login again")
+            logout();
+        }
+    });
+}
