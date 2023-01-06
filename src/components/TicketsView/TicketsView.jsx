@@ -1,16 +1,32 @@
-import {Image, Layout, QRCode, Table, Typography} from "antd";
+import {Button, Image, Layout, notification, Popconfirm, QRCode, Table, Typography} from "antd";
+import {cancelTicket} from "../../api/ticketsApi";
 
-function TicketsView({tickets}) {
+function TicketsView({tickets, username, logout, setTriggerRenderMsg}) {
+    const [api, contextHolder] = notification.useNotification();
+    const openNotificationWithIcon = (type, msg) => {
+        api[type]({
+            message: 'Ticket canceled successfully',
+            description: msg,
+        });
+    };
     const columns = [
         {
             title: "Ticket",
             render: (_, record) => <QRCode
-                value={`Event: ${record.movieEventId}! => ${record.movieName} in room ${record.room} at ${record.playDate}. Don't miss out!`}/>
+                value={`Event: ${record.movieEventId}! => ${record.movieName} in room ${record.room} at ${record.playDate}. Don't miss out!`}/>,
+            width: "200px"
+        },
+        {
+            title: "Ticket number",
+            dataIndex: "id",
+            width: "100px",
+            align: "center"
         },
         {
             title: "Date",
             dataIndex: "playDate",
-            width: "150px"
+            width: "150px",
+            align: "center"
         },
         {
             title: "Room",
@@ -25,7 +41,7 @@ function TicketsView({tickets}) {
         {
             title: "Movie",
             dataIndex: "movieName",
-            width: "450px",
+            width: "250px",
             align: "center"
         },
         {
@@ -36,16 +52,32 @@ function TicketsView({tickets}) {
         },
         {
             title: "Status",
-            dataIndex: "status"
+            dataIndex: "status",
+            width: "120px"
+        },
+        {
+            title: "Cancel Ticket?",
+            render: (_, record) => (record.status === 'ORDERED' &&
+                <Popconfirm title={"Are you sure you want to cancel this ticket"}
+                            onConfirm={() => cancelTicket(record.id, logout)
+                                .then(() => {
+                                    setTriggerRenderMsg(`Rerender tickets arrays cause movieEvent ${record.id} was canceled`);
+                                    openNotificationWithIcon('warning', `${username} canceled ticket for movieEvent ${record.id}!`);
+                                })
+                            }>
+                    <Button type="primary" shape="round" size={"small"}>Cancel Ticket</Button>
+                </Popconfirm>),
+            width: "150px"
         }
     ];
 
     return <>
         <Layout>
-            <Layout.Content style={{height: "80%", margin: "25px"}}>
+            {contextHolder}
+            <Layout.Content>
                 <Typography.Title>Tickets:</Typography.Title>
-                <Table columns={columns} dataSource={tickets} rowKey="id" size="small"
-                       style={{width: "1200px", marginLeft: "300px"}}/>
+                <Table dataSource={tickets} columns={columns} rowKey="id" scroll={{y: 600}} size="large"
+                       style={{width: "1500px", marginLeft: "170px"}}/>
             </Layout.Content>
         </Layout>
     </>
