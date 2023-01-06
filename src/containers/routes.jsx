@@ -5,6 +5,7 @@ import Registration from "./Registration";
 import Home from "../components/Home";
 import MovieDetails from "./MovieDetails";
 import Tickets from "./Tickets";
+import UserProfile from "./UserProfile";
 
 
 export default [
@@ -31,6 +32,11 @@ export default [
     {
         path: "/tickets",
         element: <Tickets/>,
+        needsAuth: true
+    },
+    {
+        path: "/profile",
+        element: <UserProfile/>,
         needsAuth: true
     },
     {
