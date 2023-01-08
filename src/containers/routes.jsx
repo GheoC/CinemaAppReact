@@ -6,6 +6,7 @@ import Home from "../components/Home";
 import MovieDetails from "./MovieDetails";
 import Tickets from "./Tickets";
 import UserProfile from "./UserProfile";
+import Admin from "./Admin";
 
 
 export default [
@@ -38,6 +39,11 @@ export default [
         path: "/profile",
         element: <UserProfile/>,
         needsAuth: true
+    },
+    {
+        path: "/admin",
+        element: <Admin/>,
+        role: "ADMIN"
     },
     {
         path: "*",

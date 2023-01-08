@@ -7,7 +7,13 @@ function MyHeader({isAuthenticated, username, logout}) {
     const navigate = useNavigate();
     return <Layout.Header style={{background: "rgb(17,2,2)", height: "100px"}}>
         <Menu
-            style={{backgroundColor: "black", display: "block", fontFamily: "Quicksand", marginTop: "10px", height:"75px"}}
+            style={{
+                backgroundColor: "black",
+                display: "block",
+                fontFamily: "Quicksand",
+                marginTop: "10px",
+                height: "75px"
+            }}
             mode="horizontal"
             items={[
                 {
@@ -22,7 +28,10 @@ function MyHeader({isAuthenticated, username, logout}) {
                     key: 'logout',
                     label: (isAuthenticated &&
                         <Button size="large" icon={<PoweroffOutlined/>} type="primary" danger ghost
-                                onClick={logout}></Button>)
+                                onClick={() => {
+                                    logout();
+                                    navigate("/");
+                                }}></Button>)
 
                 },
                 {
@@ -36,7 +45,7 @@ function MyHeader({isAuthenticated, username, logout}) {
                     }}>Hello {username}</p>)
                 },
                 {
-                    style: {float: "right", marginTop:"10px"},
+                    style: {float: "right", marginTop: "10px"},
                     key: 'register',
                     label: (!isAuthenticated &&
                         <Button onClick={() => navigate("/register")}
@@ -49,7 +58,7 @@ function MyHeader({isAuthenticated, username, logout}) {
                                 }}> Register </Button>)
                 },
                 {
-                    style: {float: "right",  marginTop:"10px"},
+                    style: {float: "right", marginTop: "10px"},
                     key: 'login',
                     label: (!isAuthenticated &&
                         <Button onClick={() => navigate("/login")}

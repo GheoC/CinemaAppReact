@@ -5,7 +5,7 @@ import UserProfileView from "../../components/UserProfileView/UserProfileView";
 
 
 function UserProfile() {
-    const {userId, logout} = useAuthContext();
+    const {userId, logout, role} = useAuthContext();
     const [user, setUser] = useState({})
 
     useEffect(() => {
@@ -13,7 +13,7 @@ function UserProfile() {
     }, [])
 
     return <>
-        <UserProfileView user={user} userId={userId} logout={logout}/>
+        <UserProfileView user={user} userId={userId} logout={logout} role={role}/>
     </>
 }
 
