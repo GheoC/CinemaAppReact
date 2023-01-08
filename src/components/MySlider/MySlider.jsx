@@ -1,12 +1,12 @@
 import {Layout, Menu} from "antd";
-import {SlHome} from "react-icons/sl";
+import {SlHome, SlSettings} from "react-icons/sl";
 import {TbMovie} from "react-icons/tb";
 import {HiOutlineTicket} from "react-icons/hi";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {MdOutlineManageAccounts} from "react-icons/md";
 
-function MySlider({isAuthenticated}) {
+function MySlider({isAuthenticated, role}) {
     const [collapsed, setCollapsed] = useState(true);
     const navigate = useNavigate();
     return <Layout.Sider width="200px" collapsible collapsed={collapsed}
@@ -43,6 +43,12 @@ function MySlider({isAuthenticated}) {
                 label: "MyAccount",
                 icon: <MdOutlineManageAccounts/>,
                 onClick: () => navigate("/profile")
+            }),
+            (role === 'ADMIN' && {
+                key: "admin",
+                label: "Admin",
+                icon: <SlSettings/>,
+                onClick: () => navigate("/admin")
             })
         ]}>
 

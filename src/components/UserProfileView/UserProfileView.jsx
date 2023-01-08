@@ -2,7 +2,7 @@ import {Button, Card, Descriptions, Layout, Popconfirm} from "antd";
 import {deactivateUser} from "../../api/userApi";
 import {useNavigate} from "react-router-dom";
 
-function UserProfileView({user, userId, logout}) {
+function UserProfileView({user, userId, logout, role}) {
     const navigate = useNavigate();
     return <Layout>
         <Layout.Content style={{padding: "25px", height: "85vh"}}>
@@ -15,13 +15,13 @@ function UserProfileView({user, userId, logout}) {
                     <Descriptions.Item label="Phone number">{user.phoneNumber}</Descriptions.Item>
                     <Descriptions.Item span={2}></Descriptions.Item>
                     <Descriptions.Item label="Status">{user.status}</Descriptions.Item>
-                    <Descriptions.Item>
+                    {role !== 'ADMIN' && <Descriptions.Item>
                         <Popconfirm
                             title={"Are you sure you want to deactivate your account! If you click ok you wont be able to log on the account"}
                             onConfirm={() => deactivateUser(userId, navigate, logout)}>
                             <Button type="primary" danger shape="round" size={"large"}>Deactivate User</Button>
                         </Popconfirm>
-                    </Descriptions.Item>
+                    </Descriptions.Item>}
                 </Descriptions>
             </Card>
         </Layout.Content>

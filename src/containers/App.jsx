@@ -10,7 +10,7 @@ import MySlider from "../components/MySlider";
 
 
 function App() {
-    const {setLoggedUser, username, logout} = useAuthContext();
+    const {setLoggedUser, username, logout, role} = useAuthContext();
 
     let isAuthenticated = false;
     if (username !== '') {
@@ -39,12 +39,14 @@ function App() {
                 <MyHeader isAuthenticated={isAuthenticated} username={username} logout={logout}></MyHeader>
             </Layout>
             <Layout className={"container"}>
-                <MySlider isAuthenticated={isAuthenticated}/>
+                <MySlider isAuthenticated={isAuthenticated} role={role}/>
                 <Layout.Content>
                     <Routes style={{marginLeft: "45px", marginTop: "20px"}}>
                         {routes
                             .filter((route) =>
                                 (route.needsAuth && route.needsAuth === isAuthenticated) || !route.needsAuth)
+                            .filter((route) =>
+                                (route.role && route.role === role) || !route.role)
                             .map(({element, path}) => (
                                 <Route key={path} path={path} element={element}></Route>
                             ))}
