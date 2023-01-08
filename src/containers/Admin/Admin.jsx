@@ -2,6 +2,7 @@ import {Layout, Tabs} from "antd";
 import {FaUsers} from "react-icons/fa";
 import {TbMovie} from "react-icons/tb";
 import {GrSchedulePlay} from "react-icons/gr";
+import Users from "../Users";
 
 function Admin() {
     return <Layout>
@@ -14,7 +15,7 @@ function Admin() {
                     {
                         label: (<span style={{fontSize:"28px"}}><FaUsers size={"28px"}/> Users</span>),
                         key: 'users',
-                        children: `Content of Users Tab`
+                        children: <Users/>
                     },
                     {
                         label: (<span style={{fontSize:"28px"}}><TbMovie size={"28px"}/> Movies</span>),
