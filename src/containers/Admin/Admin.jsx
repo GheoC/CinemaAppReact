@@ -3,6 +3,8 @@ import {FaUsers} from "react-icons/fa";
 import {TbMovie} from "react-icons/tb";
 import {GrSchedulePlay} from "react-icons/gr";
 import Users from "../Users";
+import MoviesAdmin from "../MoviesAdmin";
+
 
 function Admin() {
     return <Layout>
@@ -20,7 +22,7 @@ function Admin() {
                     {
                         label: (<span style={{fontSize:"28px"}}><TbMovie size={"28px"}/> Movies</span>),
                         key: 'movies',
-                        children: `Content of Movies Tab`,
+                        children: <MoviesAdmin/>,
                     },
                     {
                         label: (<span style={{fontSize:"28px"}}><GrSchedulePlay size={"28px"}/> Schedule Movies</span>),
