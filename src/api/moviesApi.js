@@ -39,3 +39,15 @@ export async function getMovieEventsForMovie(id, setMovieEvents) {
             console.log(e.message);
         })
 }
+
+export async function addMovie(movie) {
+    const token = localStorage.getItem("token")
+    await axios.post("localhost:8080/api/v1/movies", {...movie},
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).catch((e) => {
+        console.log(e.message);
+    })
+}

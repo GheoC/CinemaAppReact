@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {getTicketsForUsers} from "../../api/ticketsApi";
 import {useAuthContext} from "../../context/AuthProvider/AuthProvider";
-import TicketsView from "../../components/TicketsView/TicketsView";
+import TicketsView from "../../components/TicketsView";
 
 function Tickets() {
     const [triggerRenderMsg, setTriggerRenderMsg] = useState('');
