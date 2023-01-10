@@ -6,7 +6,7 @@ import LoginView from "../../components/LoginView";
 import {useNavigate} from "react-router-dom";
 
 function Login() {
-    const {setLoggedUser} = useAuthContext();
+    const {username, setLoggedUser} = useAuthContext();
     const [loginFailedMessage, setLoginFailedMessage] = useState('');
     const navigate = useNavigate();
     const onFinish = ({username, password}) => {
@@ -29,6 +29,10 @@ function Login() {
     //         .then((user) => setLoggedUser(user))
     //         .catch((e) => setLoginFailedMessage(e.message));
     // }
+
+    if (username) {
+        navigate("/");
+    }
 
     return (
         <>

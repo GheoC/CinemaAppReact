@@ -83,12 +83,6 @@ function MovieDetailsView({movie, movieCelebrities, movieGenre, movieEvents, use
                             </iframe>
                             <Meta description={`Duration: ${movie?.duration}`} style={{textAlign: "right"}}></Meta>
                             <Meta description={movieGenre} style={{textAlign: "right"}}></Meta>
-                            <Button onClick={() => {
-                                console.log("click");
-                                openNotificationWithIcon('success')
-                            }
-                            }>Success</Button>
-                            <></>
                         </Card>
                     </Col>
                     <Col>
