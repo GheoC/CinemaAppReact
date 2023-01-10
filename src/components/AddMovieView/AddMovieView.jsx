@@ -2,97 +2,117 @@ import {Button, DatePicker, Form, Input, Select, Space, Typography} from "antd";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 
 function AddMovieView({onFinish}) {
-    return<>
+    return <>
         <Form size={"small"} onFinish={onFinish} style={{width: "800px"}}>
             <Form.Item name="name" requiredMark label={<label
                 style={{fontSize: "16px", fontWeight: "Bolder"}}>Movie name:</label>}
                        rules={[{required: true, message: 'Movie name is required'}]}>
-                <Input style={{fontSize: "16px", width: "500px"}}/>
-            </Form.Item>
-            <Form.Item name="duration" requiredMark
-                       label={<label style={{fontSize: "18px", fontWeight: "Bolder"}}>Duration:</label>}
-                       rules={[{required: true, message: 'Duration is required'}]}>
                 <Input style={{fontSize: "16px"}}/>
             </Form.Item>
 
             <Form.Item name="trailer" requiredMark
-                       label={<label style={{fontSize: "18px", fontWeight: "Bolder"}}>Trailer link:</label>}
+                       label={<label style={{fontSize: "16px", fontWeight: "Bolder"}}>Trailer link:</label>}
                        rules={[{required: true, message: 'Trailer is required'}]}>
                 <Input style={{fontSize: "16px"}}/>
             </Form.Item>
 
             <Form.Item name="img" requiredMark label={<label
-                style={{fontSize: "18px", fontWeight: "Bolder"}}>Image name:</label>}
+                style={{fontSize: "16px", fontWeight: "Bolder"}}>Image name:</label>}
                        rules={[{required: true, message: 'Poster Image is required'}]}>
                 <Input style={{fontSize: "16px"}}/>
             </Form.Item>
-            <Form.Item name="is3D" requiredMark label={<label
-                style={{
-                    fontSize: "18px",
-                    fontWeight: "Bolder"
-                }}>3D</label>}
-                       rules={[{required: true, message: '3D info is required'}]}>
-                <Select style={{width: "100px"}}>
-                    <Select.Option value={"true"}>true</Select.Option>
-                    <Select.Option value={"false"}>false</Select.Option>
-                </Select>
-            </Form.Item>
-            <Form.Item name="promoted" requiredMark label={<label
-                style={{
-                    fontSize: "18px",
-                    fontWeight: "Bolder"
-                }}>Promoted</label>}
-                       rules={[{required: true, message: 'Promoted info is required'}]}>
-                <Select style={{width: "100px"}}>
-                    <Select.Option value={"true"}>true</Select.Option>
-                    <Select.Option value={"false"}>false</Select.Option>
-                </Select>
-            </Form.Item>
+
+            <Space style={{
+                display: 'flex',
+                marginBottom: 8,
+            }}>
+                <Form.Item name="is3D" requiredMark label={<label
+                    style={{
+                        fontSize: "16px",
+                        fontWeight: "Bolder"
+                    }}>3D</label>}
+                           rules={[{required: true, message: '3D info is required'}]}>
+                    <Select style={{width: "75px"}}>
+                        <Select.Option value={"true"}>true</Select.Option>
+                        <Select.Option value={"false"}>false</Select.Option>
+                    </Select>
+                </Form.Item>
+                <Form.Item name="promoted" requiredMark label={<label
+                    style={{
+                        fontSize: "16px",
+                        fontWeight: "Bolder"
+                    }}>Promoted</label>}
+                           rules={[{required: true, message: 'Promoted info is required'}]}>
+                    <Select style={{width: "75px"}}>
+                        <Select.Option value={"true"}>true</Select.Option>
+                        <Select.Option value={"false"}>false</Select.Option>
+                    </Select>
+                </Form.Item>
+
+                <Form.Item name="duration" requiredMark
+                           label={<label style={{fontSize: "16px", fontWeight: "Bolder"}}>Duration:</label>}
+                           rules={[{required: true, message: 'Duration is required'}]}>
+                    <Input style={{fontSize: "16px", width: "75px"}}/>
+                </Form.Item>
+
+                <Form.Item name="imdb" requiredMark label={<label
+                    style={{fontSize: "16px", fontWeight: "Bolder"}}>IMDB</label>}
+                           rules={[{required: true, message: 'IMDB mark is required'}]}>
+                    <Input style={{fontSize: "16px", width: "50px"}}/>
+                </Form.Item>
+            </Space>
 
             <Form.Item name="description" requiredMark label={<label
-                style={{fontSize: "18px", fontWeight: "Bolder"}}>Description</label>}
+                style={{fontSize: "16px", fontWeight: "Bolder"}}>Description</label>}
                        rules={[{required: true, message: '3D info is required'}]}>
                 <Input.TextArea style={{fontSize: "16px"}}/>
             </Form.Item>
-            <Form.Item name="imdb" requiredMark label={<label
-                style={{fontSize: "18px", fontWeight: "Bolder"}}>IMDB</label>}
-                       rules={[{required: true, message: 'IMDB mark is required'}]}>
-                <Input style={{fontSize: "16px", width: "40px"}}/>
-            </Form.Item>
-            <Form.Item name="director" requiredMark label={<label
-                style={{fontSize: "18px", fontWeight: "Bolder"}}>Director</label>}
-                       rules={[{required: true, message: 'director name is required'}]}>
-                <Input style={{fontSize: "16px", width: "300px"}}/>
-            </Form.Item>
 
-            <Form.Item name="status" requiredMark label={<label
-                style={{fontSize: "18px", fontWeight: "Bolder"}}>Movie status</label>}
-                       rules={[{required: true, message: 'Status is required'}]}>
-                <Select style={{width: "100px"}}>
-                    <Select.Option value={"PLAYING"}>Playing</Select.Option>
-                    <Select.Option value={"CANCELED"}>Canceled</Select.Option>
-                </Select>
-            </Form.Item>
+            <Space style={{
+                display: 'flex',
+                marginBottom: 8,
+            }}>
+                <Form.Item name="director" requiredMark label={<label
+                    style={{fontSize: "16px", fontWeight: "Bolder"}}>Director</label>}
+                           rules={[{required: true, message: 'director name is required'}]}>
+                    <Input style={{fontSize: "16px", width: "300px"}}/>
+                </Form.Item>
 
-            <Form.Item name="premierDate" requiredMark label={<label
-                style={{fontSize: "18px", fontWeight: "Bolder"}}>Premier Date</label>}
-                       rules={[{required: true, message: 'Premier Date is required'}]}>
-                <DatePicker/>
-            </Form.Item>
+                <Form.Item name="premierDate" requiredMark label={<label
+                    style={{fontSize: "16px", fontWeight: "Bolder"}}>Premier Date</label>}
+                           rules={[{required: true, message: 'Premier Date is required'}]}>
+                    <DatePicker/>
+                </Form.Item>
+            </Space>
 
-            <Form.Item name="language" requiredMark label={<label
-                style={{fontSize: "18px", fontWeight: "Bolder"}}>Language</label>}
-                       rules={[{required: true, message: 'Language is required'}]}>
-                <Input style={{fontSize: "16px", width: "150px"}}/>
-            </Form.Item>
+            <Space style={{
+                display: 'flex',
+                marginBottom: 8,
+            }}>
+                <Form.Item name="status" requiredMark label={<label
+                    style={{fontSize: "16px", fontWeight: "Bolder"}}>Movie status</label>}
+                           rules={[{required: true, message: 'Status is required'}]}>
+                    <Select style={{width: "100px"}}>
+                        <Select.Option value={"PLAYING"}>Playing</Select.Option>
+                        <Select.Option value={"CANCELED"}>Canceled</Select.Option>
+                    </Select>
+                </Form.Item>
 
-            <Form.Item name="subtitles" requiredMark label={<label
-                style={{fontSize: "18px", fontWeight: "Bolder"}}>Subtitles</label>}
-                       rules={[{required: true, message: 'Language is required'}]}>
-                <Input style={{fontSize: "16px", width: "150px"}}/>
-            </Form.Item>
+                <Form.Item name="language" requiredMark label={<label
+                    style={{fontSize: "16px", fontWeight: "Bolder"}}>Language</label>}
+                           rules={[{required: true, message: 'Language is required'}]}>
+                    <Input style={{fontSize: "16px", width: "150px"}}/>
+                </Form.Item>
 
-            <Typography.Paragraph style={{fontSize: "18px", fontWeight: "Bolder"}}>Celebrities:</Typography.Paragraph>
+                <Form.Item name="subtitles" requiredMark label={<label
+                    style={{fontSize: "16px", fontWeight: "Bolder"}}>Subtitles</label>}
+                           rules={[{required: true, message: 'Language is required'}]}>
+                    <Input style={{fontSize: "16px", width: "150px"}}/>
+                </Form.Item>
+            </Space>
+
+
+            <Typography.Paragraph style={{fontSize: "16px", fontWeight: "Bolder"}}>Celebrities:</Typography.Paragraph>
             <Form.List name="celebrities">
                 {(fields, {add, remove}) => (
                     <>
@@ -129,7 +149,7 @@ function AddMovieView({onFinish}) {
                 )}
             </Form.List>
 
-            <Typography.Paragraph style={{fontSize: "18px", fontWeight: "Bolder"}}>Genres:</Typography.Paragraph>
+            <Typography.Paragraph style={{fontSize: "16px", fontWeight: "Bolder"}}>Genres:</Typography.Paragraph>
             <Form.List name="genres">
                 {(fields, {add, remove}) => (
                     <>

@@ -1,7 +1,8 @@
-import {Button, Card, Col, Layout, Row, Table, Typography} from "antd";
+import {Button, Card, Col, Layout, Row, Table} from "antd";
 import {useEffect, useState} from "react";
 import {getMovies} from "../../api/moviesApi";
 import AddMovie from "../AddMovie";
+import MovieDetailsAdmin from "../MovieDetailsAdmin";
 
 function MoviesAdmin() {
     const [movies, setMovies] = useState([]);
@@ -12,8 +13,6 @@ function MoviesAdmin() {
     useEffect(() => {
         getMovies(setMovies)
     }, [triggerMoviesRender]);
-
-    console.log("new Movie -> " + triggerMoviesRender);
 
     const columns = [
         {
@@ -60,9 +59,9 @@ function MoviesAdmin() {
                         </Card>
                     </Col>
                     <Col>
-                        <Card style={{marginLeft: "25px"}}>
+                        <Card style={{marginLeft: "25px", minHeight:"670px", width:"860px"}}>
                             {display === 'ADD' && <AddMovie setTriggerMoviesRender={setTriggerMoviesRender}/>}
-                            {display === 'VIEW' && <Typography.Title> View Details {currentMovieId}</Typography.Title>}
+                            {display === 'VIEW' && <MovieDetailsAdmin movieId={currentMovieId}/>}
                         </Card>
                     </Col>
                 </Row>
