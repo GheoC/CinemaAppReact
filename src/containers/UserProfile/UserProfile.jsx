@@ -9,7 +9,17 @@ function UserProfile() {
     const [user, setUser] = useState({})
 
     useEffect(() => {
-        getUserById(userId, setUser, logout);
+        getUserById(userId)
+            .then((response) => setUser(response.data))
+            .catch((e) => {
+                if (e.response.status === 401) {
+                    console.log("Token has expired! Login again")
+                    logout();
+                }
+                if (e.response.status === 403) {
+                    console.log("Access Denied");
+                }
+            });
     }, [])
 
     return <>

@@ -1,8 +1,7 @@
 import {Button, Card, Col, Layout, notification, Popconfirm, Row, Table, Tag, Typography} from "antd";
 import Meta from "antd/es/card/Meta";
-import {buyTicket} from "../../api/ticketsApi";
 
-function MovieDetailsView({movie, movieCelebrities, movieGenre, movieEvents, username, userId, logout}) {
+function MovieDetailsView({movie, movieCelebrities, movieGenre, movieEvents, username, userId, logout, buyTicket}) {
     const [api, contextHolder] = notification.useNotification();
     const openNotificationWithIcon = (type, msg) => {
         api[type]({
@@ -32,11 +31,17 @@ function MovieDetailsView({movie, movieCelebrities, movieGenre, movieEvents, use
             title: "Buy Ticket",
             render: (_, record) => (username &&
                 <Popconfirm title={"Are you sure you want to buy this ticket"}
-                            onConfirm={() => buyTicket(record.id, userId, record.price, logout)
+                            onConfirm={() => buyTicket(record.id, userId, record.price)
                                 .then(() => openNotificationWithIcon(
                                     'success',
                                     `${username} bought ticket for movieEvent ${record.id} for ${record.price} lei`
                                 ))
+                                .catch((e) => {
+                                    if (e.response.status === 401) {
+                                        console.log("Token has expired! Login again")
+                                        logout();
+                                    }
+                                })
                             }>
                     <Button type="primary" shape="round" size={"small"}>Buy Ticket</Button>
                 </Popconfirm>

@@ -29,6 +29,7 @@ function MyHeader({isAuthenticated, username, logout}) {
                     label: (isAuthenticated &&
                         <Button size="large" icon={<PoweroffOutlined/>} type="primary" danger ghost
                                 onClick={() => {
+                                    localStorage.removeItem("token");
                                     logout();
                                     navigate("/");
                                 }}></Button>)

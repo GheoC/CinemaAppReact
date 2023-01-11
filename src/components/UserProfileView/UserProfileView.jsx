@@ -18,10 +18,21 @@ function UserProfileView({user, userId, logout, role}) {
                     {role !== 'ADMIN' && <Descriptions.Item>
                         <Popconfirm
                             title={"Are you sure you want to deactivate your account! If you click ok you wont be able to log on the account"}
-                            onConfirm={() => changeUserStatus(userId, logout).then(() => {
-                                logout();
-                                navigate("/")
-                            })}>
+                            onConfirm={() =>
+                                changeUserStatus(userId)
+                                    .then(() => {
+                                        logout();
+                                        navigate("/")
+                                    })
+                                    .catch((e) => {
+                                        if (e.response.status === 401) {
+                                            console.log("Token has expired! Login again")
+                                            logout();
+                                        }
+                                        if (e.response.status === 403) {
+                                            console.log("Access Denied");
+                                        }
+                                    })}>
                             <Button type="primary" danger shape="round" size={"large"}>Deactivate User</Button>
                         </Popconfirm>
                     </Descriptions.Item>}

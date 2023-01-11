@@ -4,6 +4,7 @@ import {getMovieById, getMovieEventsForMovie} from "../../api/moviesApi";
 import PageNotFound from "../../components/PageNotFound";
 import {useAuthContext} from "../../context/AuthProvider/AuthProvider";
 import MovieDetailsView from "../../components/MovieDetailsView";
+import {buyTicket} from "../../api/ticketsApi";
 
 function MovieDetails() {
     const {id} = useParams();
@@ -21,11 +22,31 @@ function MovieDetails() {
     }, '');
 
     useEffect(() => {
-        getMovieById(id, setMovie, setIsMovieFound)
-    }, []);
+        getMovieById(id)
+            .then((response) => {
+                console.log(response.data);
+                setMovie(response.data);
+            })
+            .catch((e) => {
+                console.log(e.message);
+                setIsMovieFound(false);
+            });
 
-    useEffect(() => {
-        getMovieEventsForMovie(id, setMovieEvents)
+        getMovieEventsForMovie(id)
+            .then((response) => {
+                const movieEvents = response.data.map((singleData) => {
+                    return {
+                        ...singleData,
+                        movieTime: new Date(singleData.playMovieDateTime).toTimeString().slice(0, 8),
+                        movieDate: new Date(singleData.playMovieDateTime).toISOString().slice(0, 10)
+                    }
+                });
+                console.log(movieEvents);
+                setMovieEvents(movieEvents);
+            })
+            .catch((e) => {
+                console.log(e.message);
+            });
     }, []);
 
     if (!isMovieFound) {
@@ -33,7 +54,8 @@ function MovieDetails() {
     }
 
     return <MovieDetailsView movie={movie} movieCelebrities={movieCelebrities} movieGenre={movieGenre}
-                             movieEvents={movieEvents} username={username} userId={userId} logout={logout}/>
+                             movieEvents={movieEvents} username={username} userId={userId} logout={logout}
+                             buyTicket={buyTicket}/>
 }
 
 export default MovieDetails;

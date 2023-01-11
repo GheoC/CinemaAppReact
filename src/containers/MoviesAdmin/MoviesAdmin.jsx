@@ -11,7 +11,14 @@ function MoviesAdmin() {
     const [triggerMoviesRender, setTriggerMoviesRender] = useState({});
 
     useEffect(() => {
-        getMovies(setMovies)
+        getMovies()
+            .then((response) => {
+                console.log(response.data);
+                setMovies(response.data);
+            })
+            .catch((e) => {
+                console.log(e.message);
+            });
     }, [triggerMoviesRender]);
 
     const columns = [
@@ -59,7 +66,7 @@ function MoviesAdmin() {
                         </Card>
                     </Col>
                     <Col>
-                        <Card style={{marginLeft: "25px", minHeight:"670px", width:"860px"}}>
+                        <Card style={{marginLeft: "25px", minHeight: "670px", width: "860px"}}>
                             {display === 'ADD' && <AddMovie setTriggerMoviesRender={setTriggerMoviesRender}/>}
                             {display === 'VIEW' && <MovieDetailsAdmin movieId={currentMovieId}/>}
                         </Card>
