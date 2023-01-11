@@ -41,7 +41,7 @@ function App() {
             <Layout className={"container"}>
                 <MySlider isAuthenticated={isAuthenticated} role={role}/>
                 <Layout.Content>
-                    <Routes style={{marginLeft: "45px", marginTop: "20px"}}>
+                    <Routes>
                         {routes
                             .filter((route) =>
                                 (route.needsAuth && route.needsAuth === isAuthenticated) || !route.needsAuth)

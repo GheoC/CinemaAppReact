@@ -6,7 +6,13 @@ function Movies() {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        getMovies(setMovies);
+        getMovies()
+            .then((response) => {
+                console.log(response.data);
+                setMovies(response.data);})
+            .catch((e) => {
+                console.log(e.message);
+            });
     }, [])
 
     return <>

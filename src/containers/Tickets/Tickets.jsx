@@ -9,7 +9,16 @@ function Tickets() {
     const [tickets, setTickets] = useState([]);
 
     useEffect(() => {
-        getTicketsForUsers(userId, setTickets);
+        getTicketsForUsers(userId)
+            .then((response) => {
+                const tickets = response.data.map((singleData) => {
+                    return {...singleData, playDate: new Date(singleData.playMovieDateTime).toUTCString()}
+                });
+                console.log(tickets);
+                setTickets(tickets);
+            }).catch((e) => {
+            console.log(e.message)
+        });
     }, [triggerRenderMsg])
 
     return <>

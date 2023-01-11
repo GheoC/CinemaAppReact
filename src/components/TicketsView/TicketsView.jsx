@@ -64,6 +64,12 @@ function TicketsView({tickets, username, logout, setTriggerRenderMsg}) {
                                     setTriggerRenderMsg(`Rerender tickets arrays cause movieEvent ${record.id} was canceled`);
                                     openNotificationWithIcon('warning', `${username} canceled ticket for movieEvent ${record.id}!`);
                                 })
+                                .catch((e) => {
+                                    if (e.response.status === 401) {
+                                        console.log("Token has expired! Login again")
+                                        logout();
+                                    }
+                                })
                             }>
                     <Button type="primary" shape="round" size={"small"}>Cancel Ticket</Button>
                 </Popconfirm>),

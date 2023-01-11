@@ -20,7 +20,7 @@ function LoginView({loginFailedMessage, setLoginFailedMessage, onFinish}) {
                       wrapperCol={{
                           span: 7,
                       }}>
-                    <Form.Item name="username" requiredMark label={<label
+                    <Form.Item name="usernameFromForm" requiredMark label={<label
                         style={{color: "#d3f261", fontSize: "32px", fontWeight: "Bolder"}}>Username</label>}
                                rules={[{required: true, message: 'Username required'}]}>
                         <Input style={{fontSize: "24px"}}/>

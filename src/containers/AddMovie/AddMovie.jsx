@@ -1,5 +1,5 @@
-import axios from "axios";
 import AddMovieView from "../../components/AddMovieView";
+import {createMovie} from "../../api/moviesApi";
 
 function AddMovie({setTriggerMoviesRender}) {
 
@@ -14,13 +14,7 @@ function AddMovie({setTriggerMoviesRender}) {
             }),
             premierDate: formData.premierDate.toISOString().slice(0, 10)
         }
-        const token = localStorage.getItem("token");
-        axios.post("http://localhost:8080/api/v1/movies", {...movieData},
-            {
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            })
+        createMovie(movieData)
             .then((response) => setTriggerMoviesRender(response.data))
             .catch((e) => {
                 console.log(e.message);
