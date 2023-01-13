@@ -1,7 +1,13 @@
-import {Button, DatePicker, Form, Input, Select, Space, Typography} from "antd";
-import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
+import {Button, DatePicker, Form, Input, Select, Space, Typography, Upload} from "antd";
+import {MinusCircleOutlined, PlusOutlined, UploadOutlined} from "@ant-design/icons";
 
 function AddMovieView({onFinish}) {
+    const normFile = (e) => {
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e?.fileList;
+    };
     return <>
         <Form size={"small"} onFinish={onFinish} style={{width: "800px"}}>
             <Form.Item name="name" requiredMark label={<label
@@ -16,11 +22,17 @@ function AddMovieView({onFinish}) {
                 <Input style={{fontSize: "16px"}}/>
             </Form.Item>
 
-            <Form.Item name="img" requiredMark label={<label
-                style={{fontSize: "16px", fontWeight: "Bolder"}}>Image name:</label>}
-                       rules={[{required: true, message: 'Poster Image is required'}]}>
-                <Input style={{fontSize: "16px"}}/>
+            <Form.Item
+                name="upload"
+                label="Upload Poster for Movie"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                rules={[{required: true, message: 'Poster file is required'}]}>
+                <Upload name="logo" action="/upload.do" listType="picture" maxCount={1}>
+                    <Button icon={<UploadOutlined/>}>Click to upload</Button>
+                </Upload>
             </Form.Item>
+
 
             <Space style={{
                 display: 'flex',
