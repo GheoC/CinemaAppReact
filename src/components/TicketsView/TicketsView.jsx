@@ -45,9 +45,8 @@ function TicketsView({tickets, username, logout, setTriggerRenderMsg}) {
             align: "center"
         },
         {
-
-            render: (_, record) => (<Image style={{height: "150px", width: "275px"}}
-                                           src={require(`../../pictures/${record.movieImg}`)}></Image>),
+            render: (_, record) => <Image style={{height: "150px", width: "275px"}}
+                                          src={`data:image/jpeg;base64,${atob(record?.picture)}`}></Image>,
             width: "300px"
         },
         {

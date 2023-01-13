@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import MovieCard from "../../components/MovieCard";
+import MovieCard from "../MovieCard";
 import {getMovies} from "../../api/moviesApi";
 
 function Movies() {

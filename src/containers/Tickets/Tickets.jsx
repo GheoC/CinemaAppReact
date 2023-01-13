@@ -11,11 +11,14 @@ function Tickets() {
     useEffect(() => {
         getTicketsForUsers(userId)
             .then((response) => {
-                const tickets = response.data.map((singleData) => {
-                    return {...singleData, playDate: new Date(singleData.playMovieDateTime).toUTCString()}
+                const ticketsFromDatabase = response.data.map((singleData) => {
+                    return {
+                        ...singleData,
+                        playDate: new Date(singleData.playMovieDateTime).toUTCString()
+                    }
                 });
-                console.log(tickets);
-                setTickets(tickets);
+                console.log(ticketsFromDatabase);
+                setTickets(ticketsFromDatabase);
             }).catch((e) => {
             console.log(e.message)
         });
