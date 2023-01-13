@@ -1,10 +1,18 @@
-import {Button, Card, Col, Layout, Row, Table} from "antd";
+import {Button, Card, Col, Layout, notification, Popconfirm, Row, Table} from "antd";
 import {useEffect, useState} from "react";
-import {getMovies} from "../../api/moviesApi";
+import {changeMovieStatus, getMovies} from "../../api/moviesApi";
 import AddMovie from "../AddMovie";
 import MovieDetailsAdmin from "../MovieDetailsAdmin";
 
+
 function MoviesAdmin() {
+    const [api, contextHolder] = notification.useNotification();
+    const openNotificationWithIcon = (type, msg) => {
+        api[type]({
+            message: 'Movie status changed successfully',
+            description: msg,
+        });
+    };
     const [movies, setMovies] = useState([]);
     const [currentMovieId, setCurrentMovieId] = useState();
     const [display, setDisplay] = useState("");
@@ -20,6 +28,14 @@ function MoviesAdmin() {
                 console.log(e.message);
             });
     }, [triggerMoviesRender]);
+
+    function switchStatus(id, name) {
+        return changeMovieStatus(id).then(() => {
+                setTriggerMoviesRender(`Rerender movies at ${new Date()}`);
+                openNotificationWithIcon('warning', `${name}'s status was changed!`)
+            }
+        );
+    }
 
     const columns = [
         {
@@ -47,8 +63,21 @@ function MoviesAdmin() {
             dataIndex: "status"
         },
         {
+            title: "Switch status",
+            render: (_, record) => (record.status === 'PLAYING') &&
+                <Popconfirm title={"Are you sure you want to cancel this movie"}
+                            onConfirm={() => switchStatus(record.id, record.name)}>
+                    <Button danger type="primary" shape="round" size={"small"}>Cancel Movie</Button>
+                </Popconfirm> ||
+                (record.status === 'CANCELED') &&
+                <Popconfirm title={"Are you sure you want to activate this user"}
+                            onConfirm={() => switchStatus(record.id, record.name)}>
+                    <Button type="primary" shape="round" size={"small"}>Activate Movie</Button>
+                </Popconfirm>
+        },
+        {
             title: "Details",
-            render: (_, {id}) => (<Button onClick={() => {
+            render: (_, {id}) => (<Button size={"small"} shape="round" onClick={() => {
                 setCurrentMovieId(id);
                 setDisplay("VIEW")
             }}>Details</Button>)
@@ -57,6 +86,7 @@ function MoviesAdmin() {
 
     return <>
         <Layout>
+            {contextHolder}
             <Layout.Content>
                 <Row>
                     <Col span={12}>

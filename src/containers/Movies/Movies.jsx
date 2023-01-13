@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
 import MovieCard from "../MovieCard";
-import {getMovies} from "../../api/moviesApi";
+import {getPlayingMovies} from "../../api/moviesApi";
 
 function Movies() {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        getMovies()
+        getPlayingMovies()
             .then((response) => {
                 console.log(response.data);
                 setMovies(response.data);})

@@ -1,7 +1,7 @@
 import {Button, notification, Popconfirm, Table} from "antd";
 import {changeUserStatus} from "../../api/userApi";
 
-function UsersView({users, setTriggerRenderMsg, logout}) {
+function UsersView({users, setTriggerRenderMsg}) {
     const [api, contextHolder] = notification.useNotification();
     const openNotificationWithIcon = (type, msg) => {
         api[type]({
@@ -9,8 +9,8 @@ function UsersView({users, setTriggerRenderMsg, logout}) {
             description: msg,
         });
     };
-    const switchStatus = (id, email, logout) => function switchStatus() {
-        return changeUserStatus(id, logout).then(() => {
+    function switchStatus(id, email) {
+        return changeUserStatus(id).then(() => {
                 setTriggerRenderMsg(`Rerender users at ${new Date()}`);
                 openNotificationWithIcon('warning', `${email}'s status was changed!`)
             }
@@ -59,12 +59,12 @@ function UsersView({users, setTriggerRenderMsg, logout}) {
             render: (_, record) => (
                 (record.status === 'ACTIVE' && record.role !== "ADMIN") &&
                 <Popconfirm title={"Are you sure you want to deactivate this user"}
-                            onConfirm={switchStatus(record.id, record.email, logout)}>
+                            onConfirm={()=> switchStatus(record.id, record.email)}>
                     <Button type="primary" shape="round" size={"small"} danger>Deactivate User</Button>
                 </Popconfirm> ||
                 (record.status === 'INACTIVE' && record.role !== 'ADMIN') &&
                 <Popconfirm title={"Are you sure you want to activate this user"}
-                            onConfirm={switchStatus(record.id, record.email, logout)}>
+                            onConfirm={()=> switchStatus(record.id, record.email)}>
                     <Button type="primary" shape="round" size={"small"}>Activate User</Button>
                 </Popconfirm>
             ),
