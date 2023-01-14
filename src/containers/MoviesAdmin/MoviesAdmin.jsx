@@ -1,11 +1,11 @@
 import {Button, Card, Col, Layout, notification, Popconfirm, Row, Table} from "antd";
-import {useEffect, useState} from "react";
-import {changeMovieStatus, getMovies} from "../../api/moviesApi";
+import {useState} from "react";
+import {changeMovieStatus} from "../../api/moviesApi";
 import AddMovie from "../AddMovie";
 import MovieDetailsAdmin from "../MovieDetailsAdmin";
 
 
-function MoviesAdmin() {
+function MoviesAdmin({movies, setTriggerMoviesRender}) {
     const [api, contextHolder] = notification.useNotification();
     const openNotificationWithIcon = (type, msg) => {
         api[type]({
@@ -13,21 +13,8 @@ function MoviesAdmin() {
             description: msg,
         });
     };
-    const [movies, setMovies] = useState([]);
     const [currentMovieId, setCurrentMovieId] = useState();
     const [display, setDisplay] = useState("");
-    const [triggerMoviesRender, setTriggerMoviesRender] = useState({});
-
-    useEffect(() => {
-        getMovies()
-            .then((response) => {
-                console.log(response.data);
-                setMovies(response.data);
-            })
-            .catch((e) => {
-                console.log(e.message);
-            });
-    }, [triggerMoviesRender]);
 
     function switchStatus(id, name) {
         return changeMovieStatus(id).then(() => {
