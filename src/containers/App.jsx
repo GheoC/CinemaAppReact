@@ -1,7 +1,7 @@
 import {useAuthContext} from "../context/AuthProvider/AuthProvider";
 import {useEffect} from "react";
 import axios from "axios";
-import "../styles/App.css"
+import "../styles/app.css"
 import {Route, Routes} from "react-router-dom";
 import routes from "./routes";
 import {Layout} from "antd";

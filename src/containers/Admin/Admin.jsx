@@ -4,6 +4,7 @@ import {TbMovie} from "react-icons/tb";
 import {GrSchedulePlay} from "react-icons/gr";
 import Users from "../Users";
 import MoviesAdmin from "../MoviesAdmin";
+import MovieEventsAdmin from "../MovieEventsAdmin";
 
 
 function Admin() {
@@ -27,7 +28,7 @@ function Admin() {
                     {
                         label: (<span style={{fontSize:"28px"}}><GrSchedulePlay size={"28px"}/> Schedule Movies</span>),
                         key: 'movieEvents',
-                        children: `Content of Movie Events Tab`,
+                        children: <MovieEventsAdmin/>,
                     },
                 ]}
             />

@@ -1,5 +1,6 @@
-import {Button, Card, Col, Layout, notification, Popconfirm, Row, Table, Tag, Typography} from "antd";
+import {Button, Card, Col, Layout, notification, Popconfirm, Row, Tag, Typography} from "antd";
 import Meta from "antd/es/card/Meta";
+import MovieEventsView from "../MovieEventsView/MovieEventsView";
 
 function MovieDetailsView({movie, movieCelebrities, movieGenre, movieEvents, username, userId, logout, buyTicket}) {
     const [api, contextHolder] = notification.useNotification();
@@ -91,10 +92,7 @@ function MovieDetailsView({movie, movieCelebrities, movieGenre, movieEvents, use
                         </Card>
                     </Col>
                     <Col>
-                        <Card style={{width: "840px", height: "770px", marginTop: "0px", marginLeft: "25px"}}>
-                            <Typography.Title>Schedule:</Typography.Title>
-                            <Table dataSource={movieEvents} columns={columns} rowKey="id"/>
-                        </Card>
+                        <MovieEventsView movieEvents={movieEvents} columns={columns}/>
                     </Col>
                 </Row>
             </Layout.Content>
