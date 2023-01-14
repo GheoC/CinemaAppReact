@@ -1,24 +1,26 @@
-import {useEffect, useState} from "react";
-import {getMovieEventsForMovie, getMovies} from "../../api/moviesApi";
-import {Card, Col, Layout, Row, Select, Space} from "antd";
+import {useState} from "react";
+import {getMovieEventsForMovie, saveMovieEvents} from "../../api/moviesApi";
+import {Col, Layout, Row, Select, Space} from "antd";
 import MovieEventsView from "../../components/MovieEventsView/MovieEventsView";
+import AddMovieEvents from "../AddMovieEvents";
 
-function MovieEventsAdmin() {
-    const [movies, setMovies] = useState();
+function MovieEventsAdmin({movies}) {
     const [selectedMovie, setSelectedMovie] = useState();
     const [movieEvents, setMovieEvents] = useState();
-
-    useEffect(() => {
-        getMovies().then(response => setMovies(response.data))
-            .catch((e) =>
-                console.log(e.message)
-            );
-    }, []);
 
     const eventOnSelect = (value) => {
         const selected = movies?.filter((movie) => movie.name === value);
         setSelectedMovie(selected[0]);
         getMovieEventsForMovie(selected[0].id).then((response) => setMovieEvents(response.data));
+    }
+
+    const onFinish = ({movieEvents}) => {
+        const completeMovieEvents = movieEvents.map((movieEvent) => {
+            return {movieDtoId: selectedMovie.id, ...movieEvent}
+        });
+        saveMovieEvents(completeMovieEvents)
+            .then(() => getMovieEventsForMovie(selectedMovie.id)
+                .then((response) => setMovieEvents(response.data)));
     }
 
     return <>
@@ -40,7 +42,8 @@ function MovieEventsAdmin() {
                         <MovieEventsView movieEvents={movieEvents}/>
                     </Col>
                     <Col>
-                        {selectedMovie && <Card> Add Movie Events Here for {selectedMovie.id}</Card>}
+                        {selectedMovie && <AddMovieEvents movieId={selectedMovie.id} movieName={selectedMovie.name}
+                                                          onFinish={onFinish}/>}
                     </Col>
                 </Row>
             </Layout.Content>
