@@ -1,4 +1,4 @@
-import {Layout, Tabs} from "antd";
+import {Layout, notification, Tabs} from "antd";
 import {FaUsers} from "react-icons/fa";
 import {TbMovie} from "react-icons/tb";
 import {GrSchedulePlay} from "react-icons/gr";
@@ -10,10 +10,17 @@ import {getMovies} from "../../api/moviesApi";
 
 
 function Admin() {
+    const [api, contextHolder] = notification.useNotification();
+    const openNotificationWithIconFromAdmin = (type, message, description) => {
+        api[type]({
+            message: message,
+            description: description,
+        });
+    };
     const [movies, setMovies] = useState([]);
     const [triggerMoviesRender, setTriggerMoviesRender] = useState({});
     useEffect(() => {
-        getMovies()
+        getMovies(undefined)
             .then((response) => {
                 setMovies(response.data);
             })
@@ -23,6 +30,7 @@ function Admin() {
     }, [triggerMoviesRender]);
 
     return <Layout>
+        {contextHolder}
         <Layout.Content style={{marginLeft: "25px", marginTop: "25px", height: "81vh"}}>
             <Tabs
                 type="card"
@@ -32,18 +40,20 @@ function Admin() {
                     {
                         label: (<span style={{fontSize: "28px"}}><FaUsers size={"28px"}/> Users</span>),
                         key: 'users',
-                        children: <Users/>
+                        children: <Users openNotificationWithIconFromAdmin={openNotificationWithIconFromAdmin}/>
                     },
                     {
                         label: (<span style={{fontSize: "28px"}}><TbMovie size={"28px"}/> Movies</span>),
                         key: 'movies',
-                        children: <MoviesAdmin movies={movies} setTriggerMoviesRender={setTriggerMoviesRender}/>,
+                        children: <MoviesAdmin movies={movies} setTriggerMoviesRender={setTriggerMoviesRender}
+                                               openNotificationWithIconFromAdmin={openNotificationWithIconFromAdmin}/>,
                     },
                     {
                         label: (
                             <span style={{fontSize: "28px"}}><GrSchedulePlay size={"28px"}/> Schedule Movies</span>),
                         key: 'movieEvents',
-                        children: <MovieEventsAdmin movies={movies}/>,
+                        children: <MovieEventsAdmin movies={movies}
+                                                    openNotificationWithIconFromAdmin={openNotificationWithIconFromAdmin}/>,
                     },
                 ]}
             />

@@ -2,8 +2,7 @@ import AddMovieView from "../../components/AddMovieView";
 import {createMovie} from "../../api/moviesApi";
 import {uploadPicture} from "../../api/pictureApi";
 
-function AddMovie({setTriggerMoviesRender}) {
-
+function AddMovie({setTriggerMoviesRender, openNotificationWithIconFromAdmin}) {
     const onFinish = (formData) => {
         const fileUploaded = formData.upload[0].originFileObj;
         const movieData = {
@@ -21,9 +20,11 @@ function AddMovie({setTriggerMoviesRender}) {
             .then((response) => {
                 uploadPicture(fileUploaded).then(() => console.log('Upload Successfully'));
                 setTriggerMoviesRender(response.data);
+                openNotificationWithIconFromAdmin('success', 'Movie added successfully', `Movie ${movieData.name}`);
             })
             .catch((e) => {
                 console.log(e.message);
+                openNotificationWithIconFromAdmin('error', `Movie failed to be added`, `Please check again the information you have entered`)
             })
     };
 

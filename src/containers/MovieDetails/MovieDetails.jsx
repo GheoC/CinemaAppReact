@@ -1,6 +1,7 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getMovieById, getMovieEventsForMovie} from "../../api/moviesApi";
+import {getMovieById} from "../../api/moviesApi";
+import {getMovieEventsForMovie} from "../../api/movieEventsApi";
 import PageNotFound from "../../components/PageNotFound";
 import {useAuthContext} from "../../context/AuthProvider/AuthProvider";
 import MovieDetailsView from "../../components/MovieDetailsView";
@@ -32,7 +33,7 @@ function MovieDetails() {
                 setIsMovieFound(false);
             });
 
-        getMovieEventsForMovie(id)
+        getMovieEventsForMovie(id, 'ACTIVE')
             .then((response) => {
                 const movieEvents = response.data.map((singleData) => {
                     return {

@@ -1,25 +1,18 @@
-import {Button, Card, Col, Layout, notification, Popconfirm, Row, Table} from "antd";
+import {Button, Card, Col, Layout, Popconfirm, Row, Table} from "antd";
 import {useState} from "react";
 import {changeMovieStatus} from "../../api/moviesApi";
 import AddMovie from "../AddMovie";
 import MovieDetailsAdmin from "../MovieDetailsAdmin";
 
 
-function MoviesAdmin({movies, setTriggerMoviesRender}) {
-    const [api, contextHolder] = notification.useNotification();
-    const openNotificationWithIcon = (type, msg) => {
-        api[type]({
-            message: 'Movie status changed successfully',
-            description: msg,
-        });
-    };
+function MoviesAdmin({movies, setTriggerMoviesRender, openNotificationWithIconFromAdmin}) {
     const [currentMovieId, setCurrentMovieId] = useState();
     const [display, setDisplay] = useState("");
 
     function switchStatus(id, name) {
         return changeMovieStatus(id).then(() => {
                 setTriggerMoviesRender(`Rerender movies at ${new Date()}`);
-                openNotificationWithIcon('warning', `${name}'s status was changed!`)
+                openNotificationWithIconFromAdmin('warning', `Movie status change`, `${name}'s status was changed!`)
             }
         );
     }
@@ -73,7 +66,6 @@ function MoviesAdmin({movies, setTriggerMoviesRender}) {
 
     return <>
         <Layout>
-            {contextHolder}
             <Layout.Content>
                 <Row>
                     <Col span={12}>
@@ -84,7 +76,8 @@ function MoviesAdmin({movies, setTriggerMoviesRender}) {
                     </Col>
                     <Col>
                         <Card style={{marginLeft: "25px", minHeight: "670px", width: "860px"}}>
-                            {display === 'ADD' && <AddMovie setTriggerMoviesRender={setTriggerMoviesRender}/>}
+                            {display === 'ADD' && <AddMovie setTriggerMoviesRender={setTriggerMoviesRender}
+                                                            openNotificationWithIconFromAdmin={openNotificationWithIconFromAdmin}/>}
                             {display === 'VIEW' && <MovieDetailsAdmin movieId={currentMovieId}/>}
                         </Card>
                     </Col>

@@ -1,6 +1,8 @@
-import {Button, Card, Table, Typography} from "antd";
+import {Button, Card, Popconfirm, Table, Typography} from "antd";
 
-function MovieEventsView({movieEvents, columns}) {
+function MovieEventsView({movieEvents, columns, switchMovieEventStatus}) {
+
+
     const defaultColumns = [
         {
             title: "id",
@@ -24,7 +26,16 @@ function MovieEventsView({movieEvents, columns}) {
         },
         {
             title: "Cancel Event",
-            render: (_, record) => <Button>Cancel {record.id}</Button>
+            render: (_, record) => (record.status === 'ACTIVE') &&
+                <Popconfirm title={"Are you sure you want to cancel this movie event"}
+                            onConfirm={() => switchMovieEventStatus(record.id)}>
+                    <Button danger type="primary" shape="round" size={"small"}>Cancel Event</Button>
+                </Popconfirm> ||
+                (record.status === 'CANCELED') &&
+                <Popconfirm title={"Are you sure you want to activate this movie event"}
+                            onConfirm={() => switchMovieEventStatus(record.id)}>
+                    <Button type="primary" shape="round" size={"small"}>Activate Event</Button>
+                </Popconfirm>
         }
     ]
 
