@@ -3,7 +3,7 @@ import {getAllUsers} from "../../api/userApi";
 import UsersView from "../../components/UsersView";
 import {useAuthContext} from "../../context/AuthProvider/AuthProvider";
 
-function Users() {
+function Users({openNotificationWithIconFromAdmin}) {
     const {logout} = useAuthContext();
     const [users, setUsers] = useState([]);
     const [triggerRenderMsg, setTriggerRenderMsg] = useState('');
@@ -25,7 +25,7 @@ function Users() {
     }, [triggerRenderMsg]);
 
     return <>
-        <UsersView users={users} setTriggerRenderMsg={setTriggerRenderMsg}/>
+        <UsersView users={users} setTriggerRenderMsg={setTriggerRenderMsg} openNotificationWithIconFromAdmin={openNotificationWithIconFromAdmin}/>
     </>
 }
 

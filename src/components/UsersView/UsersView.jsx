@@ -1,21 +1,15 @@
-import {Button, notification, Popconfirm, Table} from "antd";
+import {Button, Popconfirm, Table} from "antd";
 import {changeUserStatus} from "../../api/userApi";
 
-function UsersView({users, setTriggerRenderMsg}) {
-    const [api, contextHolder] = notification.useNotification();
-    const openNotificationWithIcon = (type, msg) => {
-        api[type]({
-            message: 'User status changed successfully',
-            description: msg,
-        });
-    };
+function UsersView({users, setTriggerRenderMsg, openNotificationWithIconFromAdmin}) {
     function switchStatus(id, email) {
         return changeUserStatus(id).then(() => {
                 setTriggerRenderMsg(`Rerender users at ${new Date()}`);
-                openNotificationWithIcon('warning', `${email}'s status was changed!`)
+                openNotificationWithIconFromAdmin('warning', `User status changed successfully`, `${email}'s status was changed!`)
             }
         );
     }
+
     const columns = [
         {
             title: "user id",
@@ -59,12 +53,12 @@ function UsersView({users, setTriggerRenderMsg}) {
             render: (_, record) => (
                 (record.status === 'ACTIVE' && record.role !== "ADMIN") &&
                 <Popconfirm title={"Are you sure you want to deactivate this user"}
-                            onConfirm={()=> switchStatus(record.id, record.email)}>
+                            onConfirm={() => switchStatus(record.id, record.email)}>
                     <Button type="primary" shape="round" size={"small"} danger>Deactivate User</Button>
                 </Popconfirm> ||
                 (record.status === 'INACTIVE' && record.role !== 'ADMIN') &&
                 <Popconfirm title={"Are you sure you want to activate this user"}
-                            onConfirm={()=> switchStatus(record.id, record.email)}>
+                            onConfirm={() => switchStatus(record.id, record.email)}>
                     <Button type="primary" shape="round" size={"small"}>Activate User</Button>
                 </Popconfirm>
             ),
@@ -73,7 +67,6 @@ function UsersView({users, setTriggerRenderMsg}) {
     ];
 
     return <>
-        {contextHolder}
         <Table columns={columns} dataSource={users} rowKey={"id"} size={"small"}
                style={{display: "flex", justifyContent: "center"}}></Table>
     </>

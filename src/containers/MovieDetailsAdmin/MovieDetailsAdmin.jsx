@@ -4,18 +4,13 @@ import {Typography} from "antd";
 
 function MovieDetailsAdmin({movieId}) {
     const [movie, setMovie] = useState();
-    const [movieFound, setMovieFound] = useState(true);
 
     useEffect(() => {
         getMovieById(movieId)
             .then((response) => {
                 console.log(response.data);
                 setMovie(response.data);
-            })
-            .catch((e) => {
-                console.log(e.message);
-                setMovieFound(false);
-            })
+            });
     }, [movieId]);
 
     return <>
