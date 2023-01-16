@@ -5,6 +5,7 @@ import {HiOutlineTicket} from "react-icons/hi";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {MdOutlineManageAccounts} from "react-icons/md";
+import {AiOutlineSchedule} from "react-icons/ai";
 
 function MySlider({isAuthenticated, role}) {
     const [collapsed, setCollapsed] = useState(true);
@@ -31,6 +32,12 @@ function MySlider({isAuthenticated, role}) {
                 label: "Movies",
                 icon: <TbMovie/>,
                 onClick: () => navigate("/movies")
+            },
+            {
+                key: "schedule",
+                label: "Schedule",
+                icon: <AiOutlineSchedule/>,
+                onClick: () => navigate("/schedule")
             },
             (isAuthenticated && {
                 key: "tickets",

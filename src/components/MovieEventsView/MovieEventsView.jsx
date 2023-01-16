@@ -1,8 +1,6 @@
 import {Button, Card, Popconfirm, Table, Typography} from "antd";
 
 function MovieEventsView({movieEvents, columns, switchMovieEventStatus}) {
-
-
     const defaultColumns = [
         {
             title: "id",
