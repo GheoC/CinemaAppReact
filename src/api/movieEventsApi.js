@@ -24,3 +24,10 @@ export async function switchStatusForMovieEvent(id) {
         }
     });
 }
+
+export async function getAllMovieEvents(status) {
+    if (status) {
+        return await axios.get(`http://localhost:8080/api/v1/movie-events?status=${status}`);
+    }
+    return await axios.get(`http://localhost:8080/api/v1/movie-events`);
+}

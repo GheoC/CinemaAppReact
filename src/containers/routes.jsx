@@ -7,6 +7,7 @@ import MovieDetails from "./MovieDetails";
 import Tickets from "./Tickets";
 import UserProfile from "./UserProfile";
 import Admin from "./Admin";
+import Schedule from "./Schedule/Schedule";
 
 
 export default [
@@ -21,6 +22,10 @@ export default [
     {
         path: "/movies/:id",
         element: <MovieDetails/>
+    },
+    {
+        path: "/schedule",
+        element: <Schedule/>
     },
     {
         path: "/login",
