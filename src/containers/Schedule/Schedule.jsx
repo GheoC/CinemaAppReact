@@ -78,7 +78,11 @@ function Schedule() {
                     <>
                         <DatePicker
                             onChange={(date) => {
-                                const stringDate = date?.toISOString().slice(0, 8) + date.date();
+                                debugger
+                                var stringDate = undefined
+                                if (date !== null) {
+                                stringDate = date?.toISOString().slice(0, 8) + date.date();
+                                }
                                 setSelectedKeys(stringDate ? [stringDate] : []);
                                 confirm({closeDropdown: false});
                             }}
