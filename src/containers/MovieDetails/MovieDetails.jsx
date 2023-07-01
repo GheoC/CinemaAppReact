@@ -50,7 +50,7 @@ function MovieDetails() {
             });
     }, []);
 
-    if (!isMovieFound) {
+    if (!isMovieFound || movie?.status === 'CANCELED') {
         return <PageNotFound/>
     }
 

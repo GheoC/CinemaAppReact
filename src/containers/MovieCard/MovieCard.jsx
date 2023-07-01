@@ -15,8 +15,8 @@ function MovieCard({id, name, img}) {
 
     return <Card title={<a style={{fontSize: "18px"}} onClick={() => navigate(`/movies/${id}`)}>{name}</a>}
                  size={"medium"} style={{width: "520px", margin: "15px"}}>
-        <Image src={`data:image/jpeg;base64,${image}`}></Image>
-
+        {image === undefined ? <Image src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif'></Image> :
+            <Image src={`data:image/jpeg;base64,${image}`}></Image>}
     </Card>
 }
 
